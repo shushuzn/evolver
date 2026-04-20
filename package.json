@@ -29,6 +29,7 @@
     "solidify": "node index.js solidify",
     "review": "node index.js review",
     "test": "node --test test/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-lines=0 test/*.test.js",
     "a2a:export": "node scripts/a2a_export.js",
     "a2a:ingest": "node scripts/a2a_ingest.js",
     "a2a:promote": "node scripts/a2a_promote.js"
