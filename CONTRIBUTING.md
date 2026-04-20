@@ -19,7 +19,6 @@ Submit PRs with clear intent and scope.
 | `npm review` | Run the review command |
 | `npm test` | Run all tests with Node.js test runner |
 | `npm run test:coverage` | Run tests with coverage report |
-| `npm run dev` | Run with hot-reload (nodemon) |
 | `npm run a2a:export` | Export A2A artifacts |
 | `npm run a2a:ingest` | Ingest A2A artifacts |
 | `npm run a2a:promote` | Promote A2A artifacts |
