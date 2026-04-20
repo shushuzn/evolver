@@ -35,7 +35,7 @@ function parseNotepadEntries(content) {
 
 // 解析 evolver event JSONL
 function parseEvolverEvents(content) {
-  if (!content.trim()) return [];
+  if (!content || !content.trim()) return [];
   return content.trim().split('\n').map(line => {
     try { return JSON.parse(line); } catch { return null; }
   }).filter(Boolean);
