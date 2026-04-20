@@ -109,6 +109,7 @@ function recordToHub(outcome) {
     execSync(curlCmd, { timeout: 10000, stdio: ['pipe', 'pipe', 'pipe'] });
     return true;
   } catch {
+    // Silently fail — Hub may be unavailable or route may not exist
     return false;
   }
 }
@@ -129,6 +130,7 @@ function recordToLocal(graphPath, outcome) {
     fs.appendFileSync(graphPath, JSON.stringify(entry) + '\n', 'utf8');
     return true;
   } catch {
+    // Silently fail — Hub unavailable or route not supported
     return false;
   }
 }
