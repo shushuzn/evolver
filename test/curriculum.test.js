@@ -15,6 +15,7 @@ function freshRequire(modulePath) {
 function loadMod(tmpDir) {
   process.env.EVOLUTION_DIR = tmpDir;
   delete require.cache[require.resolve('../src/gep/paths')];
+  delete require.cache[require.resolve('../src/gep/curriculum')];
   return freshRequire('../src/gep/curriculum');
 }
 
