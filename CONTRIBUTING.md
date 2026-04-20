@@ -9,3 +9,15 @@ Thank you for contributing. Please follow these rules:
 
 Submit PRs with clear intent and scope.
 
+## Development Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm start` | Run evolver in the current directory |
+| `npm run` | Run evolver in start mode |
+| `npm solidify` | Run the solidify command |
+| `npm review` | Run the review command |
+| `npm test` | Run all tests with Node.js test runner |
+| `npm run a2a:export` | Export A2A artifacts |
+| `npm run a2a:ingest` | Ingest A2A artifacts |
+| `npm run a2a:promote` | Promote A2A artifacts |
