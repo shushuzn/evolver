@@ -135,6 +135,40 @@ function recordToLocal(graphPath, outcome) {
   }
 }
 
+// ── Record to evolver-outcomes.jsonl (for AutoTune) ────────────────────────────
+function findOutcomesPath() {
+  // src/adapters/scripts/ → workspace root
+  const candidates = [
+    path.resolve(__dirname, '../../../../.omc/state/evolver-outcomes.jsonl'),
+  ];
+  for (const c of candidates) {
+    const dir = path.dirname(c);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    return c;
+  }
+  return null;
+}
+
+function recordToOutcomes(outcome) {
+  const outcomesPath = findOutcomesPath();
+  if (!outcomesPath) return false;
+  try {
+    const entry = {
+      ts: new Date().toISOString(),
+      session_id: outcome.geneId || 'ad_hoc',
+      signals: outcome.signals,
+      status: outcome.status,
+      score: outcome.score,
+      preview: outcome.summary,
+      source: 'evolver:session-end',
+    };
+    fs.appendFileSync(outcomesPath, JSON.stringify(entry) + '\n', 'utf8');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function main() {
   let inputData = '';
   let handled = false;
@@ -171,8 +205,9 @@ function main() {
 
       const hubOk = recordToHub(outcome);
       const localOk = graphPath ? recordToLocal(graphPath, outcome) : false;
+      const outcomesOk = recordToOutcomes(outcome);
 
-      const target = hubOk ? 'Hub' : localOk ? 'local memory' : 'nowhere (no Hub or local path)';
+      const target = outcomesOk ? 'outcomes' : (hubOk ? 'Hub' : localOk ? 'local memory' : 'nowhere');
       const msg = `[Evolution] Session outcome recorded to ${target}: ${outcome.summary}`;
 
       process.stdout.write(JSON.stringify({
