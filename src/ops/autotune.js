@@ -9,9 +9,17 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ── Config ────────────────────────────────────────────────────────────────────
+// Resolve to workspace root .omc/ (same as PreToolUse Hook looks for)
+function resolveWorkspaceOmc(...segments) {
+  // __dirname = evolver/src/ops/  → go up to evolver/ root
+  const root = path.resolve(__dirname, '../../');
+  return path.join(root, '.omc', ...segments);
+}
+
 const CONFIG = {
-  dataDir: path.join(__dirname, '../../../.omc/state'),
-  outputPath: path.join(__dirname, '../../../.omc/state/evolver-autotune.json'),
+  // evolver/src/ops/ → evolver/ → 80-PROJECTS/ → workspace/
+  dataDir: path.resolve(__dirname, '../../../../.omc/state'),
+  outputPath: path.resolve(__dirname, '../../../../.omc/state/evolver-autotune.json'),
   windowSize: 50,
   emaAlpha: 0.3,
   minWeight: 0.1,
